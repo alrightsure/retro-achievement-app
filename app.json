@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "retro-chievos-2.0",
+    "slug": "retro-chievos-2.0"
+  }
+}
