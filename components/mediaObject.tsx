@@ -1,4 +1,5 @@
 import { TouchableOpacity, View, Image, Text } from "react-native";
+import { Link } from "expo-router";
 
 interface MediaObjectProps {
     imageUrl: string;
@@ -7,16 +8,16 @@ interface MediaObjectProps {
     detailLine1: string;
     detailLine2?: string;
     detailLine3?: string;
-    onPress?: (() => void) | undefined;
+    href?: string | undefined;
 }
 
-interface ConditionalTouchableWrapperProps {
-    onPress?: (() => void) | undefined;
+interface ConditionalLinkWrapper {
+    href?: string | undefined;
     children: React.ReactNode;
 }
 
-export const MediaObject = ({ imageUrl, title, subtitle, detailLine1, detailLine2, detailLine3, onPress }: MediaObjectProps) => (
-    <ConditionalTouchableWrapper onPress={onPress}>
+export const MediaObject = ({ imageUrl, title, subtitle, detailLine1, detailLine2, detailLine3, href }: MediaObjectProps) => (
+    <ConditionalLinkWrapper href={href}>
         <View className="flex flex-row pt-4 pr-4 items-start ml-4">
             <View className="flex justify-center content-center pr-5">
                 <Image className="w-20 h-20" source={{ uri: `https://retroachievements.org${imageUrl}` }} resizeMode="stretch" />
@@ -33,12 +34,12 @@ export const MediaObject = ({ imageUrl, title, subtitle, detailLine1, detailLine
                 {detailLine3 && <Text className="text-fadedGrey leading-none text-sm md:text-xl">{detailLine3}</Text>}
             </View>
         </View>
-    </ConditionalTouchableWrapper>
+    </ConditionalLinkWrapper>
 );
 
-const ConditionalTouchableWrapper = ({ onPress, children }: ConditionalTouchableWrapperProps) => {
-    if (onPress) {
-        return <TouchableOpacity onPress={onPress}>{children}</TouchableOpacity>;
+const ConditionalLinkWrapper = ({ href, children }: ConditionalLinkWrapper) => {
+    if (href) {
+        return <Link href={href}>{children}</Link>;
     }
     return <>{children}</>;
 };

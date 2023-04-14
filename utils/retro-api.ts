@@ -6,8 +6,28 @@ import {
     getUserSummary,
     getGameList,
     getTopTenUsers,
-    UserSummary
+    UserSummary,
+    getGameInfoAndUserProgress,
+    GameExtendedAchievementEntityWithUserProgress,
+    GameExtended
 } from "@retroachievements/api";
+
+interface User extends UserSummary {
+    name: string;
+}
+
+export interface CustomGameInfoAndUserProgress extends GameExtended {
+    achievements: GameExtendedAchievementEntityWithUserProgress[];
+    numAwardedToUser: number;
+    numAwardedToUserHardcore: number;
+    userCompletion: string;
+    userCompletionHardcore: string;
+}
+
+export enum SortOptions {
+    "Order Achieved",
+    "Standard Order"
+}
 
 const userName = "apiuser";
 const webApiKey = "vquxqhwyumC4H6sqtqTaLuBkYnjwhR4n";
@@ -122,10 +142,6 @@ export const getSearchedGameList = async (consoleId?: number) => {
     });
 };
 
-interface User extends UserSummary {
-    name: string;
-}
-
 export const getTop10Players = async () => {
     const topTenUsers: User[] = [];
     const users = await getTopTenUsers(authorization);
@@ -136,3 +152,43 @@ export const getTop10Players = async () => {
 
     return topTenUsers;
 };
+
+export const getGameDetailsAndUserProgress = async (gameId: string) => {
+    const details = await getGameInfoAndUserProgress(authorization, {
+        userName: await getUsername(),
+        gameId
+    });
+    const { achievements, ...detailsMinusAchievements } = details;
+    const fixedAchievements: GameExtendedAchievementEntityWithUserProgress[] = Object.values(achievements);
+    const customDetails: CustomGameInfoAndUserProgress = { ...detailsMinusAchievements, achievements: [] };
+
+    const sortOrder = await getSortDirection();
+    if (sortOrder === SortOptions["Order Achieved"]) {
+        // Sort achievements by date achieved, then use default order after sorting all those that were achieved.
+        customDetails.achievements = fixedAchievements.sort((a, b) => {
+            if (a.dateEarned && b.dateEarned) {
+                return b.dateEarned.toString().split("/").reverse().join().localeCompare(a.dateEarned.toString().split("/").reverse().join());
+            } else if (a.dateEarned && !b.dateEarned) {
+                return -1;
+            } else if (b.dateEarned && !a.dateEarned) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    } else {
+        // Sort achievements by default order
+        customDetails.achievements = fixedAchievements.sort((a, b) => a.displayOrder - b.displayOrder);
+    }
+
+    return customDetails;
+};
+
+export async function getSortDirection() {
+    let sortDirection = await AsyncStorage.getItem("sortDirection");
+    if (sortDirection === null) {
+        await AsyncStorage.setItem("sortDirection", SortOptions["Order Achieved"].toString());
+        sortDirection = SortOptions["Order Achieved"].toString();
+    }
+    return Number(sortDirection) as SortOptions;
+}

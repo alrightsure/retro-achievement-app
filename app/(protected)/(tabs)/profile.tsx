@@ -38,6 +38,7 @@ const Profile = () => {
                     detailLine1={`Last Played: ${item.lastPlayed?.split(" ")[0]}`}
                     detailLine2={`Achievements: ${achievementDetails?.numAchieved}/${achievementDetails?.numPossibleAchievements}`}
                     detailLine3={`Points: ${achievementDetails?.scoreAchieved}/${achievementDetails?.possibleScore}`}
+                    href={`/games/${item.gameId}`}
                 />
             );
         } else {

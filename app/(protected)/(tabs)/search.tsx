@@ -35,7 +35,7 @@ const Search = () => {
         return games;
     };
 
-    const renderItem = ({ item, index }: { item: GameList[number]; index: number }) => (
+    const renderItem = ({ item }: { item: GameList[number] }) => (
         <MediaObject
             imageUrl={item.imageIcon}
             title={item.title}
@@ -43,6 +43,7 @@ const Search = () => {
             detailLine1={`Achievements: ${item.numAchievements}`}
             detailLine2={`Points: ${item.points}`}
             key={item.id}
+            href={`/games/${item.id}`}
         />
     );
 
