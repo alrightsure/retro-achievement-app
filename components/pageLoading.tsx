@@ -10,7 +10,7 @@ export const PageLoading = ({ isFullScreen }: { isFullScreen?: boolean }) => {
     }
 
     return (
-        <View className="flex justify-center flex-1 z-10">
+        <View className="h-full justify-center">
             <ActivityIndicator size="large" />
         </View>
     );

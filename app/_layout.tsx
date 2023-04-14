@@ -1,8 +1,7 @@
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Slot, SplashScreen, useRouter, useSegments } from "expo-router";
 import { getIsLoggedIn } from "@/utils/retro-api";
-import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 const queryClient = new QueryClient();
 
@@ -24,19 +23,17 @@ const AppLayout = () => {
         router.replace("/");
     }
 
-    return (
-        <SafeAreaView className="flex items-center bg-black py-1 h-full w-full">
-            <Slot />
-        </SafeAreaView>
-    );
+    return <Slot />;
 };
 
-const AppWrapper = () => {
+const AppLayoutWrapper = () => {
     return (
         <QueryClientProvider client={queryClient}>
-            <AppLayout />
+            <ActionSheetProvider>
+                <AppLayout />
+            </ActionSheetProvider>
         </QueryClientProvider>
     );
 };
 
-export default AppWrapper;
+export default AppLayoutWrapper;

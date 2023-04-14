@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { MediaObject } from "@/components/mediaObject";
 import { PageLoading } from "@/components/pageLoading";
-import { authorization, getUserDetails, getUsername } from "@/utils/retro-api";
+import { authorization, getUsername } from "@/utils/retro-api";
 import { useQuery } from "@tanstack/react-query";
-import { FlatList, View, Image } from "react-native";
-import { RecentlyPlayedGame, User } from "@/utils/types";
+import { View, Image } from "react-native";
 import { PageTitle } from "@/components/pageTitle";
 import { GeneralText } from "@/components/generalText";
 import { SectionHeader } from "@/components/sectionHeader";
 import { getUserSummary, type UserSummary, type RecentlyPlayedGameEntity } from "@retroachievements/api";
+import { FlashList } from "@shopify/flash-list";
 
-const Home = () => {
+const Profile = () => {
     const [refreshing, setRefreshing] = useState(false);
     const { data: userName } = useQuery(["username"], getUsername);
     const {
@@ -27,11 +27,9 @@ const Home = () => {
         { enabled: !!userName, onSettled: () => setRefreshing(false) }
     );
 
-    const renderItem = ({ item, index }: { item: RecentlyPlayedGameEntity; index: number }) => {
+    const renderItem = ({ item }: { item: RecentlyPlayedGameEntity; index: number }) => {
         if (userDetails) {
             const achievementDetails = userDetails.awarded[item.gameId];
-
-            console.log(item.imageIcon);
 
             return (
                 <MediaObject
@@ -47,25 +45,28 @@ const Home = () => {
         }
     };
 
-    if (isLoading) {
-        return <PageLoading />;
-    }
-
     return (
-        <FlatList
-            data={userDetails.recentlyPlayed}
-            renderItem={renderItem}
-            keyExtractor={item => item.gameId.toString()}
-            onRefresh={() => {
-                setRefreshing(true);
-                refetch();
-            }}
-            refreshing={refreshing}
-            ListHeaderComponent={<ProfileHeader userName={userName} userDetails={userDetails} />}
-            ListEmptyComponent={<GeneralText textClassName="text-center pt-10 text-lg pl-4">You haven't played anything yet!</GeneralText>}
-            ListFooterComponent={<View className="pb-4" />}
-            className="w-full"
-        />
+        <View className="bg-darkGrey h-full w-full">
+            {!isLoading && userDetails ? (
+                <FlashList
+                    data={userDetails.recentlyPlayed}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.gameId.toString()}
+                    onRefresh={() => {
+                        setRefreshing(true);
+                        refetch();
+                    }}
+                    refreshing={refreshing}
+                    ListHeaderComponent={<ProfileHeader userName={userName} userDetails={userDetails} />}
+                    ListEmptyComponent={<GeneralText textClassName="text-center pt-10 text-lg pl-4">You haven't played anything yet!</GeneralText>}
+                    ListFooterComponent={<View className="pb-4" />}
+                    className="w-full"
+                    estimatedItemSize={100}
+                />
+            ) : (
+                <PageLoading />
+            )}
+        </View>
     );
 };
 
@@ -86,4 +87,4 @@ const ProfileHeader = ({ userName, userDetails }: { userName: string | null | un
     );
 };
 
-export default Home;
+export default Profile;
