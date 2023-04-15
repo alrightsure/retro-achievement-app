@@ -22,7 +22,7 @@ const Top10Players = () => {
     };
 
     return (
-        <View className="bg-darkGrey h-full w-full">
+        <View className="bg-black h-full w-full">
             {isLoading ? (
                 <PageLoading />
             ) : (

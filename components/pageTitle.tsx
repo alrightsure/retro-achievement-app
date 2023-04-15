@@ -7,7 +7,7 @@ export const PageTitle = ({ children, textClassName }: { children: React.ReactNo
     return (
         <Text
             adjustsFontSizeToFit
-            className={clsx(`text-white font-bold md:text-3xl`, textClassName)}
+            className={clsx(`text-white font-avantGardeBold md:text-3xl`, textClassName)}
             style={{ fontSize: fontSize }}
             onTextLayout={event => {
                 const { lines } = event.nativeEvent;

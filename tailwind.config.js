@@ -15,6 +15,10 @@ module.exports = {
             },
             text: {
                 sm: "14"
+            },
+            fontFamily: {
+                avantGarde: ["AvantGarde"],
+                avantGardeBold: ["AvantGardeBold"]
             }
         }
     },

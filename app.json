@@ -1,10 +1,40 @@
 {
-  "expo": {
-    "scheme": "acme",
-    "web": {
-      "bundler": "metro"
-    },
-    "name": "retro-chievos-2.0",
-    "slug": "retro-chievos-2.0"
-  }
+    "expo": {
+        "scheme": "acme",
+        "name": "Retro Achievements",
+        "slug": "retro-achievements",
+        "owner": "alrightsure",
+        "version": "2.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "dark",
+        "backgroundColor": "#1a1a1a",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#1a1a1a"
+        },
+        "platforms": ["ios", "android"],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.alrightsure.retroachievements",
+            "buildNumber": "10"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#1a1a1a"
+            },
+            "package": "com.alrightsure.retroachievements",
+            "versionCode": 10
+        },
+        "extra": {
+            "eas": {
+                "projectId": "929a3f89-c9f4-4c76-aa9d-bb2254ff9a8a"
+            }
+        },
+        "runtimeVersion": {
+            "policy": "sdkVersion"
+        }
+    }
 }

@@ -192,3 +192,8 @@ export async function getSortDirection() {
     }
     return Number(sortDirection) as SortOptions;
 }
+
+export const setSortDirection = async (sortDirection: SortOptions) => {
+    await AsyncStorage.setItem("sortDirection", sortDirection.toString());
+    return sortDirection;
+};

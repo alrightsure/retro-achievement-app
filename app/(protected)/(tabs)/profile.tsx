@@ -47,7 +47,7 @@ const Profile = () => {
     };
 
     return (
-        <View className="bg-darkGrey h-full w-full">
+        <View className="bg-black h-full w-full">
             {!isLoading && userDetails ? (
                 <FlashList
                     data={userDetails.recentlyPlayed}
@@ -61,7 +61,6 @@ const Profile = () => {
                     ListHeaderComponent={<ProfileHeader userName={userName} userDetails={userDetails} />}
                     ListEmptyComponent={<GeneralText textClassName="text-center pt-10 text-lg pl-4">You haven't played anything yet!</GeneralText>}
                     ListFooterComponent={<View className="pb-4" />}
-                    className="w-full"
                     estimatedItemSize={100}
                 />
             ) : (

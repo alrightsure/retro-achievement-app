@@ -28,7 +28,7 @@ const LatestAchievements = () => {
     };
 
     return (
-        <View className="w-full h-full bg-darkGrey">
+        <View className="w-full h-full bg-black">
             <FlashList
                 data={recentAchievements}
                 renderItem={renderItem}

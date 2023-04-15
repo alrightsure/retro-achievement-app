@@ -23,15 +23,27 @@ export const MediaObject = ({ imageUrl, title, subtitle, detailLine1, detailLine
                 <Image className="w-20 h-20" source={{ uri: `https://retroachievements.org${imageUrl}` }} resizeMode="stretch" />
             </View>
             <View className="flex-shrink">
-                <Text numberOfLines={1} className="text-white font-bold text-sm pb-1 md:text-xl">
+                <Text numberOfLines={1} className="text-white font-avantGardeBold text-sm pb-1 md:text-xl" style={{ lineHeight: 16 }}>
                     {title}
                 </Text>
-                {subtitle && <Text className="text-fadedGrey leading-none text-sm md:text-xl">{subtitle}</Text>}
-                <Text numberOfLines={2} className="text-fadedGrey leading-none text-sm md:text-xl">
+                {subtitle && (
+                    <Text className="text-fadedGrey leading-tight font-avantGarde text-sm md:text-xl">
+                        {subtitle}
+                    </Text>
+                )}
+                <Text numberOfLines={2} className="text-fadedGrey font-avantGarde text-sm md:text-xl" style={{ lineHeight: 16 }}>
                     {detailLine1}
                 </Text>
-                {detailLine2 && <Text className="text-fadedGrey leading-none text-sm md:text-xl">{detailLine2}</Text>}
-                {detailLine3 && <Text className="text-fadedGrey leading-none text-sm md:text-xl">{detailLine3}</Text>}
+                {detailLine2 && (
+                    <Text className="text-fadedGrey font-avantGarde text-sm md:text-xl" style={{ lineHeight: 16 }}>
+                        {detailLine2}
+                    </Text>
+                )}
+                {detailLine3 && (
+                    <Text className="text-fadedGrey font-avantGarde text-sm md:text-xl" style={{ lineHeight: 16 }}>
+                        {detailLine3}
+                    </Text>
+                )}
             </View>
         </View>
     </ConditionalLinkWrapper>
@@ -39,7 +51,11 @@ export const MediaObject = ({ imageUrl, title, subtitle, detailLine1, detailLine
 
 const ConditionalLinkWrapper = ({ href, children }: ConditionalLinkWrapper) => {
     if (href) {
-        return <Link href={href}>{children}</Link>;
+        return (
+            <Link href={href} asChild>
+                <TouchableOpacity>{children}</TouchableOpacity>
+            </Link>
+        );
     }
     return <>{children}</>;
 };

@@ -51,15 +51,15 @@ const Search = () => {
 
     return (
         <>
-            <View className="bg-darkgrey h-full w-full">
+            <View className="bg-black h-full w-full">
                 {consolesLoading ? (
                     <PageLoading />
                 ) : (
                     <>
-                        <View className="w-full bg-darkGrey z-50 px-3">
+                        <View className="w-full bg-black z-50 px-3">
                             <ConsolePicker consoles={sortedConsoles()} selectedConsole={selectedConsole} setSelectedConsole={setSelectedConsole} />
                         </View>
-                        <View className="w-full bg-darkGrey h-full z-1 pb-28">
+                        <View className="w-full bg-black h-full z-1 pb-28">
                             {gamesLoading ? (
                                 <View className="h-1/2 justify-center items-center">
                                     <PageLoading />

@@ -21,7 +21,7 @@ export default function GameDetails() {
 
         return (
             <MediaObject
-                imageUrl={`Badge/${finalBadgeName}.png`}
+                imageUrl={`/Badge/${finalBadgeName}.png`}
                 title={item.title}
                 detailLine1={item.description}
                 detailLine2={item.dateEarned ? `Unlocked: ${item.dateEarned?.split(" ")[0]}` : `Points: ${item.points}`}
@@ -31,8 +31,12 @@ export default function GameDetails() {
     };
 
     return (
-        <View className="h-full bg-darkGrey">
-            {Platform.OS === "ios" && <View className="bg-pullDownGray w-20 h-1 mt-3 mb-2 rounded" />}
+        <View className="h-full bg-black">
+            {Platform.OS === "ios" && (
+                <View className="w-full flex justify-center items-center">
+                    <View className="bg-pullDownGray w-20 h-1 mt-3 mb-2 rounded" />
+                </View>
+            )}
             {!isLoading && gameDetails ? (
                 <View className="pt-3 w-full h-full">
                     <FlashList
@@ -78,7 +82,7 @@ function GameDetailsHeader({ gameDetails }: { gameDetails: CustomGameInfoAndUser
                 <View className="pr-3">
                     <Image className="h-36 w-36 m-2" source={{ uri: `https://retroachievements.org/${gameDetails.imageIcon}` }} />
                 </View>
-                <View className="max-w-1/2 self-end pb-1">
+                <View className="w-1/2 self-end pb-1">
                     <PageTitle>{gameDetails.title}</PageTitle>
                     <GeneralText textClassName="text-fadedGrey pb-1">{gameDetails.consoleName}</GeneralText>
                     <GeneralText>
