@@ -1,15 +1,3 @@
-# Expo Router Example
+# Retro Achievement Companion App
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
-
-## 🚀 How to use
-
-```sh
-npx create-react-native-app -t with-router
-```
-
-## 📝 Notes
-
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
-- [Request for Comments](https://github.com/expo/router/discussions/1)
+A defunct app for an API that doesn't work anymore! Written in React Native using Expo 48 and Expo Router 1.5
